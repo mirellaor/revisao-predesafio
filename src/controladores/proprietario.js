@@ -9,8 +9,15 @@ function criarProprietario(req, res) {
     res.status(201).json({ mensagem: "Sucesso! Usuário criado." });
 }
 
-function listarProprietario(req, res) {
-    res.status(200).json(dadosProprietario);
+function listarProprietarioNome(req, res) {
+    const { name } = req.query;
+    const proprietarioEncontrado = dadosProprietario.find((item) => item.name === name);
+
+    if (!proprietarioEncontrado) {
+        res.status(404).json({ mensagem: "usuário não encontrado." });
+    }
+
+    res.status(200).json(proprietarioEncontrado);
 }
 
 function listarProprietarioId(req, res) {
@@ -28,6 +35,6 @@ function listarProprietarioId(req, res) {
 module.exports =
 {
     criarProprietario,
-    listarProprietario,
+    listarProprietarioNome,
     listarProprietarioId
 }
